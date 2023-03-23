@@ -23,7 +23,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        repository: 'ubuntu'
+        repository: '$(imagename)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
@@ -33,7 +33,7 @@ stages:
         command: 'login'
     - task: aquasecScanner@4
       inputs:
-        image: 'ubuntu:$(tag)'
+        image: '$(imagename):$(tag)'
         scanType: 'hosted'
         register: true
         hideBase: false
