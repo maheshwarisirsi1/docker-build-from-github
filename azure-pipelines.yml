@@ -33,13 +33,13 @@ stages:
         command: 'login'
     - task: aquasecScanner@4
       inputs:
-        image: 'registry.aquasec.com/scanner:2022.4'
+        image: 'registry.aquasec.com/scanner:2022.4.261'
         scanType: 'hosted'
         register: true
         hideBase: false
         showNegligible: false
         windowsScannerVersion: '6.5.0'
-        scanner: 'registry.aquasec.com/scanner:2022.4'
+        scanner: 'registry.aquasec.com/scanner:2022.4.261'
         runOptions: '-e AQUA_TOKEN=7bf6d0392fcfb6cea1ca5364a65583d556ab92a3'
         registry: 'aqua_aqua-registry'
         connection: 'aqua'
