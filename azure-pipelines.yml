@@ -35,7 +35,7 @@ stages:
         command: 'login'
     - task: aquasecScanner@4
       inputs:
-        image: '$(imagename):$(tag)'
+        image: 'registry.aquasec.com/$(imagename):$(tag)'
         scanType: 'local'
         register: true
         hideBase: false
