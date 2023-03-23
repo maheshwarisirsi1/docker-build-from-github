@@ -25,26 +25,14 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          - task: aquasecScanner@4
-  inputs:
-    image: '$(imagename):$(tag)'
-    scanType: 'local'
-    register: true
-    hideBase: false
-    showNegligible: false
-    windowsScannerVersion: '6.5.0'
-    scanner: 'registry.aquasec.com/scanner:2022.4.261'
-    runOptions: '-e AQUA_TOKEN=7bf6d0392fcfb6cea1ca5364a65583d556ab92a3'
-    connection: 'aqua'
-    customFlags: '--direct-cc'
+        tags: $(tag)
     - task: Docker@2
       inputs:
         containerRegistry: 'aquareg'
         command: 'login'
     - task: aquasecScanner@4
       inputs:
-        image: 'ubuntu:latest'
+        image: '$(imagename):$(tag)'
         scanType: 'hosted'
         register: true
         hideBase: false
