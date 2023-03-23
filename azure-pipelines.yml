@@ -10,6 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  imagename: scanner
 
 stages:
 - stage: Build
@@ -23,6 +24,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
+        containerRegistry: 'aquareg'
         repository: '$(imagename)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
@@ -34,13 +36,12 @@ stages:
     - task: aquasecScanner@4
       inputs:
         image: '$(imagename):$(tag)'
-        scanType: 'hosted'
+        scanType: 'local'
         register: true
         hideBase: false
         showNegligible: false
         windowsScannerVersion: '6.5.0'
         scanner: 'registry.aquasec.com/scanner:2022.4.261'
         runOptions: '-e AQUA_TOKEN=7bf6d0392fcfb6cea1ca5364a65583d556ab92a3'
-        registry: 'Docker Hub'
         connection: 'aqua'
         customFlags: '--direct-cc'
